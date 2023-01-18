@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+	<style>
+        .text-light {
+            color: #999 !important;
+        }
+        .aui-radio {
+            width: 1rem;
+            height: 1rem;
+        }
+        #aui-header{
+          background-color: #2656FE;
+        }
+	</style>
+</head>
+<body>
+  <header class="aui-bar aui-bar-nav" id="aui-header">
+      <a class="aui-btn aui-pull-left" tapmode onclick="closeFrame()">
+          <span class="aui-iconfont aui-icon-left"></span>
+      </a>
+      <div class="aui-title">错题集</div>
+  </header>
+    <section class="aui-content">
+        <div class="aui-card-list">
+            <div class="aui-card-list-header aui-font-size-14">
+                0102020
+            </div>
+            <div class="aui-card-list-content-padded aui-padded-t-0 text-light">
+                长、宽、高分别为3、4、5的长方体，求其表面积及体积
+            </div>
+            <div class="aui-card-list-footer aui-border-t">
+                <div>
+                    <i class="aui-iconfont aui-icon-edit aui-margin-r-5 aui-font-size-14"></i>收藏
+                    <i class="aui-iconfont aui-icon-trash aui-margin-r-5 aui-margin-l-15 aui-font-size-14"></i>删除
+                </div>
+            </div>
+        </div>
+        <div class="aui-card-list">
+            <div class="aui-card-list-header aui-font-size-14">
+                03009090
+            </div>
+            <div class="aui-card-list-content-padded aui-padded-t-0 text-light">
+                若代数式2y2+3y+7的值为8,求代数式4y2+6y+9的值
+            </div>
+            <div class="aui-card-list-footer aui-border-t">
+                <div>
+                    <i class="aui-iconfont aui-icon-edit aui-margin-r-5 aui-font-size-14"></i>收藏
+                    <i class="aui-iconfont aui-icon-trash aui-margin-r-5 aui-margin-l-15 aui-font-size-14"></i>删除
+                </div>
+            </div>
+        </div>
+        <div class="aui-card-list">
+            <div class="aui-card-list-header aui-font-size-14">
+                023040404
+            </div>
+            <div class="aui-card-list-content-padded aui-padded-t-0 text-light">
+              轮船沿江从A港顺流行驶到B港，比从B港返回A港少用3小时，若船速为26千米/时，水速为2
+千米/时，求A港和B港相距多少千米．设A港和B港相距x千米．根据题意，可列出的方程是
+            </div>
+            <div class="aui-card-list-footer aui-border-t">
+                <div>
+                    <i class="aui-iconfont aui-icon-edit aui-margin-r-5 aui-font-size-14"></i>收藏
+                    <i class="aui-iconfont aui-icon-trash aui-margin-r-5 aui-margin-l-15 aui-font-size-14"></i>删除
+                </div>
+            </div>
+        </div>
+        <div class="aui-card-list">
+            <div class="aui-card-list-header aui-font-size-14">
+                010202011
+            </div>
+            <div class="aui-card-list-content-padded aui-padded-t-0 text-light">
+              “一粥一饭，当思来之不易”，当今国人舌尖上的浪费却让人触目惊心，据统计，中国每
+年浪费的食物总量折合粮食约500亿千克．这个数据用科学记数法表示为
+            </div>
+            <div class="aui-card-list-footer aui-border-t">
+                <div>
+                    <i class="aui-iconfont aui-icon-edit aui-margin-r-5 aui-font-size-14"></i>收藏
+                    <i class="aui-iconfont aui-icon-trash aui-margin-r-5 aui-margin-l-15 aui-font-size-14"></i>删除
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        api.parseTapmode();
+        var header = $api.byId('aui-header');
+        $api.fixStatusBar(header);
+    };
+    function closeFrame() {
+        api.closeFrame({
+            name: 'wrongQuestion'
+        });
+    }
+</script>
+</html>

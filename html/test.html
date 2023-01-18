@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+</head>
+<body>
+</body>
+<script type="text/javascript" src="../script/ajaxToAPICoud.js"></script>
+<script type="text/javascript">
+
+    apiready = function(){
+        window.appId = "A6006738126362";
+        api.loadSecureValue({
+            key: 'appKey'
+        }, function(ret, err) {
+            window.appKey = ret.value;
+
+            showPhotos(3);
+        });
+
+        api.confirm({
+            title: "提示",
+            msg: "自拍图片上传到云数据库 ?",
+            buttons:["我先看看", "无节操自拍"]
+        },function(ret,err){
+            if(1 == ret.buttonIndex){
+                return;
+            }
+
+            if(2 == ret.buttonIndex){ /* 打开相机*/
+                sourceType = "camera";
+
+                api.getPicture({
+                    sourceType: sourceType,
+                    encodingType: "jpg",
+                    mediaValue: "pic",
+                    quality: 10
+                }, function(ret, err){
+                    if (ret) {
+                        uploadAndShow(ret.data);
+                    }else{
+                        showPhotos();
+                    }
+                });
+            }
+        });
+    };
+
+    /* 获取数据库最后n张图片,并显示. 默认为1.*/
+    function showPhotos(n){
+        var count = n || 1;
+        var method = "get";
+        var classInfo = {
+            className: "Photo"
+        }
+
+        var callback = function(ret, err){
+
+            var wrap = document.getElementById("wrap");
+
+            if("string" === typeof ret.body){
+                ret.body = JSON.parse(ret.body);
+            }
+
+            for(var idx in ret.body){
+                var photo = ret.body[idx];
+
+                if(photo.photo){
+                    var img = document.createElement("img");
+                    img.src = photo.photo.url;
+                    img.width = api.winWidth - 16;
+
+                    document.getElementsByTagName("body")[0].appendChild(img);
+                }
+            }
+        }
+
+        var filter = "filter[order]=updatedAt DESC&filter[limit]=" + count;
+
+        ajaxToAPICloud(appId, appKey, method, classInfo, callback, filter)
+    }
+
+    /* 上传图片到数据库一个含有图片文件的Class, 并获取数据库最后十张图片,并显示. */
+    function uploadAndShow(imgPath){
+        api.showProgress({
+            title: '正在上传...'
+        });
+
+        var method = "post";
+        var classInfo = {
+            className: "Photo",
+            fields: [
+                {
+                    name: "photo",
+                    value: imgPath,
+                    type: "file",
+                    filename: "未命名"
+                }
+            ]
+        }
+
+        var callback = function(ret, err){
+            api.hideProgress();
+            showPhotos(10);
+        }
+
+        ajaxToAPICloud(appId, appKey, method, classInfo, callback)
+    }
+
+</script>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>开始练习</title>
+    <style>
+    .aui-title,.baricon{
+      font-size: 1.6em;
+      /*letter-spacing: 0.2em;*/
+    }
+    #returnLast span{
+      font-size: 2em;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+    .wrap{
+      background-color: white;
+      padding-top:8px;
+      width:100%;
+      padding-bottom: 10px;
+
+    }
+    .wrap_con{
+      font-size:1.2em;
+    }
+    .wrap_con,.wrap_ans{
+          margin: 0 auto;
+      width:90%;
+    }
+    .wrap_ans{
+      margin-top:10px;
+      background-color: #F6F7FE;
+      min-height: 85px;
+    }
+    .caozuo{
+      margin-top:40px;
+      display: flex;
+      justify-content:space-around;
+      flex-wrap: nowrap ;
+
+    }
+    #love,#ans_inp{
+            font-size: 1em;
+    }
+    #love{
+      margin-left: 20px;
+    }
+    #ans_inp{
+      margin-left: 200px;
+    }
+    #number{
+      display: block;
+      margin:0 auto;
+      text-align: center;
+    }
+    .clear{clear:both;}
+    </style>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+
+</head>
+<body>
+  <header class="aui-bar aui-bar-nav" style="background-color: #2656FE ;width:100%;height:100px;padding-top: 20px;">
+            <div class="aui-pull-left aui-btn baricon" id="returnLast">
+                <span class="aui-iconfont aui-icon-left baricon"></span>
+            </div>
+            <div class="aui-title">开始学习 </div>
+        </header>
+        <!-- 题目 -->
+        <div class="wrap">
+          <div class="wrap_con" id="question">
+
+          </div>
+        <div class="wrap_con" id="iconA">
+            aaaa撒娇的八八八八八八八八八八水水水水水水顶顶顶顶顶顶顶顶顶顶顶顶顶撒啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+          </div>
+          <!-- <div class="wrap_con" id="iconB">
+            B、aaaaaaaaaaa
+          </div>
+          <div class="wrap_con" id="iconC">
+            C、ccccccccccccccc
+          </div>
+          <div class="wrap_con" id="iconD">
+            D、dddddddddddddddd
+          </div> --> -->
+
+          <div class=wrap_ans>
+            <input name="email" type="text" class="aui-input" id="answer" placeholder="回答:" style="font-size:1.2em;"/>
+          </div>
+          <div class="caozuo">
+             <p><div class="aui-btn aui-btn-info " id="love" name="no" >收藏</div>
+               <div class="aui-btn aui-btn-success " id="ans_inp" tapmode onclick="getNext()"><span class="aui-iconfont aui-icon-edit"></span>提交</div>
+             </p>
+             <span class="number" id="number">已完成：<span id="ans_id"></span>/20</span>
+          </div>
+          <div class="clear"></div>
+
+        </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/APICloud-rest-SHA1.js"></script>
+<script type="text/javascript" src="../script/APICloud-rest.js"></script>
+<script type="text/javascript" src="../script/SHA1.js"></script>
+<script type="text/javascript">
+apiready=function(){
+  // 退出
+  getNext();
+  var returnLast=$api.byId('returnLast');
+  returnLast.onclick=function(){
+    api.closeFrame({
+    name: 'start_practice',
+    });
+  }
+  // 收藏
+  var iflove=$api.byId('love');
+  // alert(iflove);
+
+  iflove.onclick=function(){
+    if($api.text(iflove)=='收藏'){
+      $api.attr(iflove,'name','yes');
+      $api.attr(iflove,'class','aui-btn aui-btn-danger');
+      $api.text(iflove, '已收藏');
+    }else{
+      $api.attr(iflove,'class','aui-btn aui-btn-info');
+      $api.text(iflove, '收藏');
+    }
+
+  }
+
+
+  // ajax
+//   $api.get('http://www.pm25.in/api/querys/pm2_5.json?city=beijing&token=5j1znBVAsnSf5xQyNQyq',function(rs){
+//     $api.byId('#number').empty();
+//   if( rs.code == 0){
+//           str += '已完成：'+ item.id +'/'+ item.num_post
+//       $('#num_list').append(str);
+//   }else{
+//       Alert('提示信息', '操作失败，返回参数不正确!2');
+//   }
+// },'text');
+}
+//数据查询业务处理
+var index=1;
+function getNext(){
+  var client = new Resource("A6006738126362", "5BFC73E4-2086-997E-DA29-49C7FE518A2D");
+  var T_ex= client.Factory("t_ex");
+  T_ex.query({
+    "filter": {
+      "fields": [
+        "exercise",
+        "A"
+      ],
+      "where": {},
+      "skip": 0,
+      "limit": 20
+    }
+  },function(ret,err){
+    // return body
+    // alert("ret: " + JSON.stringify(ret) + "\nerr: " + JSON.stringify(err));
+    if (ret) {
+      if(index<=ret.length){
+        var ques=JSON.stringify(ret[index-1]);
+        var question=$api.byId("question");
+        var ans_id=$api.byId("ans_id")
+        var iconA=$api.byId("iconA");
+        var iconB=$api.byId("iconB");
+        var iconC=$api.byId("iconC");
+        var iconD=$api.byId("iconD");
+        var quesValue=eval('('+ques+')');
+        question.innerHTML=index+"."+quesValue.exercise;
+        ans_id.innerHTML=index;
+        iconA.innerHTML="A."+quesValue.A;
+        // iconB.innerHTML="B."+quesValue.B;
+        // iconC.innerHTML="C."+quesValue.C;
+        // iconD.innerHTML="D."+quesValue.D;
+        index++;
+      }
+    } else {
+        alert(JSON.stringify(err));
+    }
+  })
+}
+</script>
+</html>

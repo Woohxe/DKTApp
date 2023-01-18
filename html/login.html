@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css" href="../css/aui-win.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+</head>
+<style>
+        body{ background-color:#FFFFFF;}
+        .aui-bar-primary { background-color: #FFFFFF; color:#000000; font-size:14px;}
+        .aui-bar .aui-iconfont { position: relative; z-index: 20; font-size: 20px; color: #000000; font-size: 400; line-height: 45px;}
+
+        .form{ width:280px; margin:auto; margin-top:60px;}
+
+        .aui-btn-rows {
+    position:0;
+    text-align: center;
+    padding:0px;
+}
+.aui-btn-success{ width:280px; height:45px; line-height: 45px; border-radius: 25px; margin-top:40px;background-color: #2656FE ;}
+.aui-input-addons{ float:right; font-size: 14px; margin-top:20px; color: #999999;}
+.aui-btn-rowss{ width:100%;}
+</style>
+<body>
+        <header class="aui-bar aui-bar-nav aui-bar-primary" id="header">
+        <a class="aui-pull-left">
+            <span class="aui-iconfont aui-icon-left" onClick="gb()"></span>
+        </a>
+        <div class="aui-title">登录</div>
+        </header>
+
+
+    <div class="form">
+    <div class="aui-input-row">
+        <label class="aui-input-addon">用户名</label>
+        <!-- <input name="email" type="text" class="aui-input" id="email" placeholder="注册邮箱"/> -->
+        <input name="username" type="text" class="aui-input" id="username" placeholder="用户名"/>
+    </div>
+    <div class="aui-input-row">
+        <span class="aui-input-addon">密码</span>
+        <input name="password" type="password" class="aui-input" id="password" placeholder="用户密码"/>
+    </div>
+     <!-- <div class="aui-btn-rowsss">
+       <span class="aui-input-addons" onClick="zhmm()">忘记密码？</span>
+    </div> -->
+    <div class="aui-btn-rows">
+        <!-- <div class="aui-btn aui-btn-success" onclick="login()">登 陆</div> -->
+        <div class="aui-btn aui-btn-success" tapmode onclick="fnLogin();">登 录</div>
+    </div>
+    <section class="aui-content-padded">
+        <div class="aui-text-right aui-font-size-12 aui-text-danger" tapmode onclick="toRegister()">未注册？点击注册</div>
+    </section>
+    </div>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/config.js"></script>
+
+<!-- 引入mcm-js-sdk Begin -->
+<script type="text/javascript" src="../script/APICloud-rest-SHA1.js"></script>
+<script type="text/javascript" src="../script/APICloud-rest.js"></script>
+<script type="text/javascript" src="../script/SHA1.js"></script>
+<!-- 引入mcm-js-sdk END -->
+
+<script type="text/javascript">
+    apiready = function () {
+        api.parseTapmode();
+        var header = $api.byId('header');
+        $api.fixStatusBar(header);
+        var headerPos = $api.offset(header);
+        var body_h = $api.offset($api.dom('body')).h;
+    }
+
+    function gb(){
+     api.closeWin();
+    }
+
+    //找回密码
+    function zhmm(){
+         api.openWin({
+            name: 'zhmm',
+            url: 'user_login_zhmm.html',
+            animation:{
+            type:"push",                //动画类型（详见动画类型常量）
+            duration:400                //动画过渡时间，默认300毫秒
+                        }
+                });
+    }
+
+    //去注册页面
+    function toRegister (){
+      api.openWin({
+        name:'register',
+        url:'register.html',
+        pageParam:{
+          name:'test'
+        }
+      });
+    }
+
+    //登录业务处理
+    function fnLogin() {
+        var now = Date.now();
+        var appKey = SHA1("A6006738126362"+"UZ"+"5BFC73E4-2086-997E-DA29-49C7FE518A2D"+"UZ"+now)+"."+now
+
+        var username = $api.byId('username');
+        var password = $api.byId('password');
+        var usernameValue = username.value;
+        var passwordValue = password.value;
+
+        api.ajax({
+            url: 'http://d.apicloud.com/mcm/api/user/login',
+            method: 'post',
+            headers: {
+                "X-APICloud-AppId": "A6006738126362",
+                "X-APICloud-AppKey": appKey
+            },
+            data: {
+                values: {
+                    "username": usernameValue,
+                    "password": passwordValue
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                //alert(JSON.stringify(ret));
+                $api.setStorage('userInfo', ret);
+                api.alert({
+                    title: '提示',
+                    msg: '登录成功',
+                }, function(ret, err) {
+                    if (ret) {
+                        api.closeToWin({
+                            name: 'main'
+                        });
+                        api.openWin({
+                          name:'index',
+                          url:'index1.html',
+                        });
+                        $api.setStorage('username', usernameValue);
+                    } else {
+                        // alert(JSON.stringify(err));
+                        alert("登陆失败！！");
+                    }
+                });
+            } else {
+                // alert(JSON.stringify(err));
+                alert("登陆失败！");
+            }
+        });
+      }
+
+
+    function fnSetUsername(username) {
+        var username1 = $api.byId('username');
+        alert(username);
+        username1.value=username.value;
+    }
+
+    //前端登陆代码
+    // function login(){
+    //     var email = $api.val($api.byId('username'));//获取表单内容
+    //     var password = $api.val($api.byId('password'));//获取表单内容
+    //     api.ajax({
+    //       url: OpenAPI.login,
+    //       method: 'post',
+    //       timeout: 30,
+    //       dataType: 'json',
+    //       returnAll:false,
+    //       data:{
+    //         values: {email: email,password: password}
+    //       }
+    //     },function(ret,err){
+    //       //开始判断用户操作
+    //       if(email.length==0){
+    //         {api.toast({msg : '用户名不能为空！'});}
+    //       } else if(password.length==0){
+    //         {api.toast({msg : '密码不能为空！'});}
+    //       } else if(ret.status==1){
+    //         {api.toast({msg : '登陆成功！'});}
+    //       } else if(ret.status==0){
+    //         {api.toast({msg : '邮箱或者密码错误！'});}
+    //       } else if(ret.status==2){
+    //         {api.toast({msg : '该邮箱没有注册！'});}
+    //       } else if(err){
+    //         {api.toast({msg : ('错误码：' + err.code + '；错误信息：' + err.msg + '；网络状态码：' + err.statusCode)});}
+    //       }
+    //     });
+    //   }
+</script>
+</html>

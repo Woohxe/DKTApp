@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>学习分析</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+.aui-bar{
+      min-height: 4.25rem;
+      font-size: 1.6em;
+          line-height: 4.25rem;
+          vertical-align: middle;
+}
+#header{
+  background-color: #2656FE;
+}
+.fenxi{
+  margin-top: 20rem;
+  width:80%;
+  margin:20rem auto 0;
+  font-size: 1em;
+}
+    </style>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav" id="header">学习分析</header>
+<div class="fenxi" id="fenxi">
+  <span>同学你好，你较为熟练地掌握了</span>
+
+
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+      // 退出
+      var myheader=$api.byId("header");
+      var offset = $api.offset(myheader);
+var left = offset.l;
+var top = offset.t;
+var width = offset.w;
+var height = offset.h;
+// alert(height);
+      var pieChart = api.require('pieChart');
+pieChart.open({
+    x: api.frameWidth / 2,
+    y:height+30+100,
+    radius: 100,
+    center: {
+        title: '知识点',
+        subTitle: '掌握评价'
+    },
+    elements: [{
+        value: 1,
+        color: '#2E8B57',
+        title:'E'
+    }, {
+        value: 2,
+        color: '#FFD700',
+        title:'D'
+    }, {
+        value: 3,
+        color: '#FF8C00',
+        title:'C'
+    }, {
+        value: 4,
+        color: '#F4A460',
+        title:'B'
+    }, {
+        value: 5,
+        color: '#FF0000',
+        title:'A'
+    }],
+    fixedOn: api.frameName,
+    fixed: false
+}
+// , function(ret, err) {
+//     if (ret) {
+//         alert(JSON.stringify(ret));
+//     } else {
+//         alert(JSON.stringify(err));
+//     }
+// }
+);
+  //
+  // var fenxi=$api.byId("fenxi");
+  // $api.attr(fenxi, 'offsetHeight', '180px');
+
+
+    };
+</script>
+</html>

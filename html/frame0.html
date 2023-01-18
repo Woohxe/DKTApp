@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>首页</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <style>
+        .header{background-color: #2656FE ;width:100%;height:100px;}
+        .wrap{height:131px ;width:80%;background-color: #BEFFE7;position:absolute;top:61px;left:10%;text-align: center;}
+        .content{font-size:1.25em font-weight:blod}
+        .tellAll{font-size:1em;margin:29px auto 17px;}
+        .iconfont {
+          font-family: "iconfont" !important;
+          font-size: 16px;
+          font-style: normal;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+        .bar{
+          height:92px;
+          width:90%;
+          margin:4px auto 5px;
+          background-color:white;
+          display: -webkit-flex; /* Safari */
+  display: flex;
+   justify-content: flex-start;
+    align-items: flex-start;
+
+        }
+        .baricon{
+          width:67px;
+          height:67px;
+          text-align: center;
+          background-color: #EDF3FD;
+          display: inline-block;
+          margin-top: 13px;
+          margin-left: 11px;
+          background-image: url(../image/add.png);
+          padding: 13px;
+          box-sizing: border-box;
+
+        }
+        .baricon span{
+          font-size: 2.5em;
+          color:#2656FE;
+        }
+        .barContent{
+          display: inline-block;
+          margin-left: 5px;
+          margin-left: 9px;
+          margin-top: 29px;
+        }
+        .barContent p:first-child{
+          font-size: 1em;
+          color:#2656FE;
+        }
+        .barContent p:last-child{
+          font-size: 0.75em;
+          color:#ABCAF7;
+        }
+    </style>
+</head>
+<body style="background-color:#F6F7FE">
+<div class="header">
+</div>
+<!-- 公告 -->
+<div class="wrap">
+<p class="tellAll">公告</p>
+<div class="content">期中考试将于一周后开始，祝各位同学取得好成绩！</div>
+</div>
+<!-- 开始练习 -->
+<div class="bar "style="margin-top:115px;" id="stPratice">
+  <div class="baricon">
+    <span class="iconfont">&#xe612;</span>
+  </div>
+  <div class="barContent" >
+    <p>开始练习</p>
+    <p>只做不会的题，对题海战术say no</p>
+  </div>
+</div>
+<!-- 开始自测 -->
+<div class="bar" id="stExam">
+  <div class="baricon">
+      <span class="iconfont">&#xe61a;</span>
+  </div>
+  <div class="barContent" >
+    <p>开始自测</p>
+    <p>章节小测，校验能力</p>
+  </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+  apiready = function (){
+    // var eHeader = $api.byId('header');
+    // var headerHeight = $api.fixStatusBar(eHeader);
+    // var eFooter = $api.byId('footer');
+    // var footerHeight = $api.fixTabBar(eFooter);
+    // 开始学习跳转
+    var stPratice=$api.byId('stPratice');
+    stPratice.onclick=function(){
+      api.openFrame({
+          name: 'start_practice',
+          url: './frames3.html',
+          rect: {
+              marginLeft: 0,
+              marginRight: 0,
+              marginTop: 0,
+              marginBottom: 0
+          }
+      });
+    }
+    // 开始自测跳转
+    var stPratice=$api.byId('stExam');
+    stPratice.onclick=function(){
+      api.openFrame({
+          name: 'start_exam',
+          url: './frames4.html',
+          rect: {
+              marginLeft: 0,
+              marginRight: 0,
+              marginTop: 0,
+              marginBottom: 0
+          }
+      });
+    }
+
+  }
+</script>
+
+</html>

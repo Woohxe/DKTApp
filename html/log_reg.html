@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>登陆框架</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui-win.css" />
+</head>
+<style>
+        body{ background-color:#FFFFFF;}
+        .kjs{height:150px; margin:auto; border:none; width:180px; background-image:url(../image/xin.png); margin-top:140px;background-size: 100%;}
+        .login{ font-size:14px; width:280px; height:45px; border:1px solid; margin:auto; border-radius: 25px; background-color: #2656FE; line-height:45px; color:#FFFFFF; text-align:center; margin-top:40px;}
+        .login:hover{ background-color:#00BBA7;}
+        .reg{ font-size:16px;  width:280px; height:45px; border:1px solid #999999; margin:auto; border-radius: 25px; margin-top:30px;  line-height:45px; color: #000000; text-align:center;}
+        .reg:hover{ background-color: #E5E5E5;}
+        .kj{ width: 100%; height:300px; float: left;}
+</style>
+<body>
+        <div class="kj" id="header">
+            <div class="kjs"></div>
+    </div>
+
+    <div class="kj">
+            <div class="login" onclick="login()">登 陆</div>
+        <div class="reg" onclick="reg()">注 册</div>
+    </div>
+</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function () {
+            api.parseTapmode();
+        var header = $api.byId('header');
+        $api.fixStatusBar(header);
+        var headerPos = $api.offset(header);
+        var body_h = $api.offset($api.dom('body')).h;
+    }
+
+        // 打开登陆窗口
+    function login() {
+              api.openWin({
+            name: 'login',
+            url: 'login.html',
+            animation:{
+            type:"push",                //动画类型（详见动画类型常量）
+            duration:400                //动画过渡时间，默认300毫秒
+                        }
+                });
+    }
+
+    // 打开注册窗口
+    function reg() {
+              api.openWin({
+            name: 'login',
+            url: 'reg.html',
+            animation:{
+            type:"push",                //动画类型（详见动画类型常量）
+            duration:400                //动画过渡时间，默认300毫秒
+                        }
+                });
+    }
+
+</script>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <style>
+.aui-bar{
+      min-height: 3.10rem;
+      font-size: 1.4em;
+          line-height: 3.10rem;
+          vertical-align: middle;
+}
+#header{
+  background-color: #2656FE;
+}
+    </style>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav" id="header">我的</header>
+  <section class="aui-content aui-margin-b-15" id="user-info">
+      <div class="aui-list aui-media-list aui-list-noborder ">
+          <div class="aui-list-item aui-list-item-middle">
+              <div class="aui-media-list-item-inner ">
+                  <div class="aui-list-item-media" style="width:5rem;">
+                      <img src="../image/photo.png" class="aui-img-round" >
+                  </div>
+                  <div class="aui-list-item-inner aui-list-item-arrow">
+                      <div class="aui-list-item-text text-white aui-font-size-18" id="username"></div>
+                      <div class="aui-list-item-text text-white">
+                         <div class="aui-border-b aui-font-size-14" id="userMessage">东北师范大学附属中学高一三班</div>
+                      </div>
+                     <div class="aui-row">
+                          <div class="aui-col-xs-5 aui-border-r">
+                              <div class="aui-gird-lable aui-font-size-12">学习<big class="aui-text-warning" id="learnDay">000<small>天</small></big></div>
+                          </div>
+                          <div class="aui-col-xs-7">
+                            <div class="aui-gird-lable aui-font-size-12">&nbsp;&nbsp;&nbsp;&nbsp;完成<big class="aui-text-danger" id="learnNum">000<small> 个</small></big>模块</div>
+                          </div>
+                     </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+  <section class="aui-content">
+      <ul class="aui-list aui-list-in aui-margin-b-15">
+          <li class="aui-list-item">
+              <div class="aui-list-item-label-icon">
+                  <i class="aui-iconfont aui-icon-location aui-tex,t-info"></i>
+              </div>
+              <div class="aui-list-item-inner aui-list-item-arrow">
+                  <div class="aui-list-item-title">通知</div>
+              </div>
+          </li>
+      </ul>
+      <ul class="aui-list aui-list-in">
+        <li class="aui-list-item" onclick="process()">
+            <div class="aui-list-item-label-icon">
+                <i class="aui-iconfont aui-icon-like aui-text-danger"></i>
+            </div>
+            <div class="aui-list-item-inner aui-list-item-arrow">
+                <div class="aui-list-item-title">学习进度</div>
+            </div>
+        </li>
+        <li class="aui-list-item" onclick="wrong()">
+            <div class="aui-list-item-label-icon">
+                <i class="aui-iconfont aui-icon-image aui-text-info"></i>
+            </div>
+            <div class="aui-list-item-inner aui-list-item-arrow">
+                <div class="aui-list-item-title">错题集</div>
+            </div>
+        </li>
+          <li class="aui-list-item" onclick="collect()">
+              <div class="aui-list-item-label-icon">
+                  <i class="aui-iconfont aui-icon-cart aui-text-info"></i>
+              </div>
+              <div class="aui-list-item-inner aui-list-item-arrow">
+                  <div class="aui-list-item-title">练习集</div>
+                  <!-- <div class="aui-list-item-right">在这里</div> -->
+              </div>
+          </li>
+      </ul>
+  </section>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+      // 退出
+      var myheader=$api.byId("header");
+      var offset = $api.offset(myheader);
+      var username=$api.byId("username");
+      var usernamehtml = $api.getStorage('username');
+      username.innerHTML=usernamehtml;
+      // api.ajax({//用户信息
+      //     url: '',
+      //     method: 'post',
+      //     dataType:"json",
+      //     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',//防止乱码
+      // },function(ret, err){
+      //     if (ret) {
+      //         username.html(ret.username);
+      //         userMessage.html(ret.userMessage);
+      //     } else {
+      //         api.alert({msg:('错误码：'+err.code+'；错误信息：'+err.msg+'网络状态码：'+err.statusCode)});
+      //     }
+      // });
+    };
+    function process(){
+      api.openFrame({
+          name: 'learnProcess',
+          url: 'learnProcess.html',
+          rect: {
+              x: 0,
+              y: 0,
+              w: 'auto',
+              h: 'auto'
+          },
+          animation:{
+          type:"push",                //动画类型（详见动画类型常量）
+          duration:300                //动画过渡时间，默认300毫秒
+                      }
+      });
+    }
+    function collect(){
+      api.openFrame({
+          name: 'collectQuestion',
+          url: 'collectQuestion.html',
+          rect: {
+              x: 0,
+              y: 0,
+              w: 'auto',
+              h: 'auto'
+          },
+          animation:{
+          type:"push",                //动画类型（详见动画类型常量）
+          duration:300                //动画过渡时间，默认300毫秒
+                      }
+      });
+    }
+    function wrong(){
+      api.openFrame({
+          name: 'wrongQuestion',
+          url: 'wrongQuestion.html',
+          rect: {
+              x: 0,
+              y: 0,
+              w: 'auto',
+              h: 'auto'
+          },
+          animation:{
+          type:"push",                //动画类型（详见动画类型常量）
+          duration:300                //动画过渡时间，默认300毫秒
+                      }
+      });
+    }
+    function closeWin(){
+        api.closeWin({
+        });
+    }
+</script>
+</html>

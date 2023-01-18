@@ -1,0 +1,212 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <style>
+            body{ background-color:#FFFFFF;}
+            .aui-bar-primary { background-color: #FFFFFF; color:#000000; font-size:14px;}
+            .aui-bar .aui-iconfont { position: relative; z-index: 20; font-size: 20px; color: #000000; font-size: 400; line-height: 45px;}
+
+            .form{ width:280px; margin:auto; margin-top:60px;}
+
+            .aui-btn-rows {
+        position:0;
+        text-align: center;
+        padding:0px;
+    }
+    .aui-btn-success{ width:320px; height:45px; line-height: 45px; border-radius: 25px; margin-top:40px;background-color: #2656FE ;}
+    .aui-input-addons{ float:right; font-size: 14px; margin-top:20px; color: #999999;}
+    .aui-btn-rowss{ width:100%;}
+    </style>
+    <body>
+            <header class="aui-bar aui-bar-nav aui-bar-primary" id="header">
+            <a class="aui-pull-left">
+                <span class="aui-iconfont aui-icon-left" onClick="gb()"></span>
+            </a>
+            <div class="aui-title">注册</div>
+            </header>
+    <section class="aui-content aui-margin-t-15">
+        <ul class="aui-list aui-form-list">
+            <!-- <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label aui-border-r color-orange">
+                        手机号 <small class="aui-margin-l-5 aui-text-warning">+86</small>
+                    </div>
+                    <div class="aui-list-item-input aui-padded-l-10">
+                        <input type="number" pattern="[0-9]*" placeholder="输入手机号" id="mobile" >
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-input" style="width: auto;">
+                        <input type="number" pattern="^1[345678][0-9]{9}$" placeholder="输入短信验证码" id="code">
+                    </div>
+                    <div class="aui-list-item-label aui-margin-r-15" style="width: 6rem;">
+                        <div class="aui-btn aui-btn-info" style="width: 6rem;">获取验证码</div>
+                    </div>
+                </div>
+            </li> -->
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label aui-border-r color-orange">
+                        用户名
+                    </div>
+                    <div class="aui-list-item-input aui-padded-l-10">
+                        <input type="text" placeholder="用户名" id="username" >
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label aui-border-r color-orange">
+                        密码
+                    </div>
+                    <div class="aui-list-item-input aui-padded-l-10">
+                        <input type="password" pattern="^[a-zA-Z]\w{5,17}$" placeholder="用户密码" id="password" >
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+  `  <section class="aui-content-padded">
+        <div class="aui-btn aui-btn-success  aui-btn-sm" tapmode onclick="fnRegister();">注册</div>
+    </section>`
+    <section class="aui-content-padded">
+        <div class="aui-text-right aui-font-size-12 aui-text-danger" tapmode onclick="toLogin();">已有账号？点此登录</div>
+    </section>
+    <section class="aui-content-padded login-third">
+        <p class="aui-font-size-12 aui-text-center aui-margin-b-15">可选择第三方账号登录免注册</p>
+        <div class="aui-grid" style="background: none;">
+            <div class="aui-row">
+                <div class="aui-col-xs-4">
+                    <i class="aui-iconfont aui-icon-qq"></i>
+                </div>
+                <div class="aui-col-xs-4">
+                    <i class="aui-iconfont aui-icon-wechat"></i>
+                </div>
+                <div class="aui-col-xs-4">
+                    <i class="aui-iconfont aui-icon-weibo"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/SHA1.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        api.parseTapmode();
+        var header = $api.byId('header');
+        $api.fixStatusBar(header);
+    };
+    function gb(){
+      api.openWin({
+        name:'log_reg',
+        url:'log_reg.html',
+      });
+    }
+
+    // 注册业务处理
+    function fnRegister() {
+        var username = $api.byId("username");
+        var password = $api.byId("password");
+        var usernameValue = username.value;
+        var passwordValue = password.value;
+
+        var now = Date.now();
+        var appKey = SHA1("A6006738126362"+"UZ"+"5BFC73E4-2086-997E-DA29-49C7FE518A2D"+"UZ"+now)+"."+now
+
+        api.ajax({
+            url: 'https://d.apicloud.com/mcm/api/user',
+            method: 'post',
+            headers: {
+                "X-APICloud-AppId": "A6006738126362",
+                "X-APICloud-AppKey":appKey,
+            },
+            data: {
+                values: {
+                    username:usernameValue,
+                    password:passwordValue
+                }
+            }
+        },function (ret,err){
+              // if(ret&&ret.id){
+              //   alert("注册成功！");
+              // }else{
+              //   alert("注册失败！");
+              // }
+              if (ret && ret.id) {
+                  //alert(JSON.stringify(ret));
+                  api.alert({
+                      title: '提示',
+                      msg: '注册成功',
+                  }, function(ret, err) {
+                      if (ret) {
+                          api.execScript({
+                              name: 'login.html',
+                              frameName: 'login',
+                              script: 'fnSetUsername(\"'+username+'\")'
+                          })
+                          api.openWin({
+                            name:'login',
+                            url:'login.html',
+                            pageParam:{
+                              name:'test'
+                            },
+                            animation:{
+                            type:"push",                //动画类型（详见动画类型常量）
+                            duration:400                //动画过渡时间，默认300毫秒
+                                        }
+                          });
+                          $api.setStorage('username', usernameValue);
+                      } else {
+                          alert(JSON.stringify(err));
+                      }
+                  });
+              } else {
+                  alert(err);
+              }
+            }
+        );
+      }
+
+      //去登录页面
+      function toLogin (){
+        api.openWin({
+          name:'login',
+          url:'login.html',
+          pageParam:{
+            name:'test'
+          },
+          animation:{
+          type:"push",                //动画类型（详见动画类型常量）
+          duration:400                //动画过渡时间，默认300毫秒
+                      }
+        });
+      }
+
+    // function register(){
+    //          var mobile = $api.val($api.byId('mobile'));
+    //          var password = $api.val($api.byId('password'));
+    //          var password2 = $api.val($api.byId('password2'));
+                // if (password!=password2) {
+                //   api.toast({msg : '密码两次输入不相同！'});
+                // }
+    //          api.ajax({
+    //                   url:,
+    //                   method: 'post',
+    //                   dataType: 'json',
+    //                   returnAll:false,
+    //                   data:{
+    //                       values: {mobile: email,password: password}
+    //                   }
+    //          });
+    //}
+
+</script>
+</html>

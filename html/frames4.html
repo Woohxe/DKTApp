@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>我要自测</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+      <style>
+          body{
+
+
+          }
+          .aui-title,.baricon{
+            font-size: 1.6em;
+            /*letter-spacing: 0.2em;*/
+          }
+          #returnLast span{
+            font-size: 2em;
+            font-weight: 600;
+            margin-left: 8px;
+          }
+          .bar{height:66px;width:100%;}
+          .clear{
+            clear:both;
+          }
+          .bar_right{
+            float:right;
+            height:66px;
+            width:30%;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 66px;
+
+          }
+      </style>
+  </head>
+  <body>
+    <header class="aui-bar aui-bar-nav" style="background-color: #2656FE ;width:100%;height:100px;padding-top: 20px;">
+              <div class="aui-pull-left aui-btn baricon" id="returnLast">
+                  <span class="aui-iconfont aui-icon-left baricon"></span>
+              </div>
+              <div class="aui-title">开始自测 </div>
+          </header>
+    <div class="bar">
+
+      <!--短一个时间 ，不要时间了-->
+      <p><div class="aui-btn aui-btn-block bar_right" id="ret">交卷</div></p>
+      <div class="clear"></div>
+
+
+    </div>
+
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        // 退出
+        var returnLast=$api.byId('returnLast');
+        returnLast.onclick=function(){
+          api.closeFrame({
+          name: 'start_exam'
+          });
+        }
+        var ret=$api.byId('ret');
+        ret.onclick=function(){
+          api.closeFrame({
+          name: 'start_exam'
+          });
+        }
+
+      };
+  </script>
+  </html>
